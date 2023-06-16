@@ -10,4 +10,4 @@ Python implementations of the simplex algorithm for solving linear programs in t
 | gui_simplex/ | Takes inputs using a Tkinter GUI |
 | simplex.py | Doctested core algorithm |
 
-Explanation: <script src="https://gist.github.com/imengus/f9619a568f7da5bc74eaf20169a24d98.js"></script>
+See [my explanation](https://gist.github.com/imengus/f9619a568f7da5bc74eaf20169a24d98) for how to convert linear programs to simplex tableaus, and the steps taken in the simplex algorithm.
