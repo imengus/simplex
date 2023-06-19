@@ -23,13 +23,13 @@ class SimplexGui(tk.Tk):
         Initialise tkinter object by adding widgets
         """
         super().__init__()
+        self.configure(background='white')
         # Dictionary containing variable value
         self.output = None
-
         self.input_str = None
 
         # Instructions
-        self.in_label = tk.Label(self, text=LABEL, font=("Courier", 18))
+        self.in_label = tk.Label(self, text=LABEL, font=("Courier", 18), background="white")
         self.in_label.pack(padx=20, pady=20, fill="both")
 
         # Input box
@@ -42,6 +42,8 @@ class SimplexGui(tk.Tk):
             height=1,
             width=10,
             text="Commit",
+            background="white",
+            font=("Courier", 18),
             command=lambda: self.simplex(),
         )
         self.button_commit.pack()
@@ -49,14 +51,13 @@ class SimplexGui(tk.Tk):
         # Runs simplex algorithm after input retrieved
         self.bind("<Return>", self.simplex)
 
-    def display_output(self):
+    def display_output(self, output):
         """
         Add label containing output values
         """
-        self.out_text = self.make_str(self.output)
+        self.out_text = self.make_str(output)
         self.out_label = tk.Label(
-            self, text=self.out_text, font=("Courier", 18)
-        )
+            self, text=self.out_text, font=("Courier", 18), background="white")
         self.out_label.pack(padx=20, pady=20, fill="both")
 
     def simplex(self):
@@ -66,21 +67,11 @@ class SimplexGui(tk.Tk):
         """
         # Obtain and process input
         self.input_str = self.text.get("1.0", "end-1c")
-        constraints = self.input_str.strip().splitlines()
-        constraints, n_art_vars = Tableau.preprocess(constraints)
 
         # Generate tableau
-        t = Tableau(constraints, n_art_vars)
-        t.create_tableau(constraints)
-        t.generate_col_titles()
-        t.delete_empty()
-
-        # Run algorithm
-        try:
-            t.run_simp()
-        except Exception:
-            self.output = t.output_dict
-            self.display_output()
+        t = Tableau(pre_lin_prog=self.input_str.splitlines())
+        output = t.run_simplex()
+        self.display_output(output)
 
     @staticmethod
     def make_str(output_dict):
