@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import font
 from tableau import Tableau
 
 
@@ -33,7 +34,7 @@ class SimplexGui(tk.Tk):
         self.in_label.pack(padx=20, pady=20, fill="both")
 
         # Input box
-        self.text = tk.Text(self, font=("Courier", 18), height=6)
+        self.text = tk.Text(self, font=("gothic", 18), height=6, width=38)
         self.text.pack()
         self.text.insert("1.0", EXAMPLE)
 
